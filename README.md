@@ -1,4 +1,4 @@
-# 🐾 PawAlert — Setup Guide
+ 🐾 PawAlert
 
 ## Project Structure
 ```
