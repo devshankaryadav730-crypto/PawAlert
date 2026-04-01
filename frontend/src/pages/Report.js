@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/config';
 import { useAuth } from '../context/AuthContext';
 import Toast from '../components/Toast';
 
@@ -61,7 +61,7 @@ export default function Report() {
       fd.append('address', address);
       fd.append('city', city);
       if (photo) fd.append('photo', photo);
-      const { data } = await axios.post('/api/complaints', fd, {
+      const { data } = await api.post('/api/complaints', fd, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       setResult(data);

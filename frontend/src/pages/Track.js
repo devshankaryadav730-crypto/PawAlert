@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/config';
 
 const STATUS_STEPS = ['pending', 'assigned', 'in_progress', 'resolved'];
 const STATUS_LABELS = { pending: 'Pending', assigned: 'Assigned', in_progress: 'In Progress', resolved: 'Resolved' };
@@ -25,7 +25,7 @@ export default function Track() {
     if (!id.trim()) return;
     setLoading(true); setError(''); setComplaint(null);
     try {
-      const { data } = await axios.get(`/api/complaints/track/${id.trim().toUpperCase()}`);
+      const { data } = await api.get(`/api/complaints/track/${id.trim().toUpperCase()}`);
       setComplaint(data);
     } catch {
       setError('Complaint not found. Please check your ID.');

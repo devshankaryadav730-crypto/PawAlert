@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/config';
 import { useAuth } from '../context/AuthContext';
 
 const TYPE_LABELS  = { dead: '💀 Dead', injured: '🤕 Injured', aggressive: '⚠️ Aggressive', abandoned: '😔 Abandoned' };
@@ -14,7 +14,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (!user) { navigate('/login'); return; }
-    axios.get('/api/complaints/mine')
+    api.get('/api/complaints/mine')
       .then(r => setComplaints(r.data))
       .catch(console.error)
       .finally(() => setLoading(false));

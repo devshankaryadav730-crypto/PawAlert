@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/config';
 import { useAuth } from '../context/AuthContext';
 import Toast from '../components/Toast';
 
@@ -32,8 +32,8 @@ export default function Authority() {
     setLoading(true);
     try {
       const [cRes, sRes] = await Promise.all([
-        axios.get('/api/authority/complaints'),
-        axios.get('/api/authority/stats'),
+        api.get('/api/authority/complaints'),
+        api.get('/api/authority/stats'),
       ]);
       setComplaints(cRes.data);
       setStats(sRes.data);
@@ -48,7 +48,7 @@ export default function Authority() {
     if (!next) return;
     setUpdating(true);
     try {
-      const { data } = await axios.patch(`/api/authority/complaints/${c._id}/status`, { status: next, notes });
+      const { data } = await api.patch(`/api/authority/complaints/${c._id}/status`, { status: next, notes });
       setComplaints(prev => prev.map(x => x._id === data._id ? data : x));
       setStats(prev => ({ ...prev, [c.status]: prev[c.status] - 1, [next]: (prev[next] || 0) + 1 }));
       setSelected(null); setNotes('');
